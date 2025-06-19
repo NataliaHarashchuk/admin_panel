@@ -7,7 +7,7 @@ import Header from './components/Header';
 
 export default function App() {
   return (
-    <Router basename="/admin_panel/">
+    <Router>
       <Header/>
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
