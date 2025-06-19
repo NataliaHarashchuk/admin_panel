@@ -7,7 +7,7 @@ import './App.scss'
 
 export default function App() {
   return (
-    <Router>
+    <Router basename="/admin_panel/">
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
 

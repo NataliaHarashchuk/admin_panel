@@ -74,10 +74,6 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          slotProps={{
-            minLength: 6,
-            title: "Пароль має містити щонайменше 6 символів",
-          }}
         />
 
         {error && (
