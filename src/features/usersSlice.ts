@@ -6,7 +6,7 @@ const defaultAdmin: User = {
   id: "0",
   userName: "admin",
   email: "admin@example.com",
-  password: "admin",
+  password: "admin123",
   role: "admin",
 };
 

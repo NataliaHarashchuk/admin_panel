@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import NotFound from './pages/NotFound';
 import PrivateRoute from './routes/PrivateRoute';
+import './App.scss'
 
 export default function App() {
   return (
@@ -20,7 +21,7 @@ export default function App() {
             </PrivateRoute>
           }
         />
-        
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
