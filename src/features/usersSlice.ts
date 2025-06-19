@@ -1,17 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-
-type User = {
-  id: string;
-  userName: string;
-  email: string;
-  password: string;
-  role?: string;
-};
-
-type UsersState = {
-  list: User[];
-};
+import type { User, UsersState} from '../types/types.ts'
 
 const defaultAdmin: User = {
   id: "0",

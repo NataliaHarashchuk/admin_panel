@@ -1,18 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-
-type User = {
-  id: string;
-  userName: string;
-  email: string;
-  password: string;
-  role?: string;
-};
-
-type AuthState = {
-  isAuthenticated: boolean;
-  user: User | null;
-};
+import type { User, AuthState} from '../types/types.ts'
 
 const savedAuth = JSON.parse(localStorage.getItem("auth") ?? 'null') as AuthState | null;
 

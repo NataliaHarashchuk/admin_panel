@@ -3,14 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../features/authSlice';
 import { useNavigate } from 'react-router-dom';
 import type { RootState } from '../app/store';
+import type { User} from '../types/types.ts'
 
-type User = {
-  id: string;
-  userName: string;
-  email: string;
-  password: string;
-  role?: string;
-};
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');

@@ -1,7 +1,11 @@
+import UserList from "../components/UserList"
+
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <>
+    <UserList/>
+    </>
   )
 }
 

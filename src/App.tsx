@@ -20,7 +20,7 @@ export default function App() {
             </PrivateRoute>
           }
         />
-
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
