@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { User, UsersState} from '../types/types.ts'
+import type { User, UsersState } from '../types/types.ts'
 
 const defaultAdmin: User = {
   id: "0",
@@ -10,15 +10,26 @@ const defaultAdmin: User = {
   role: "admin",
 };
 
-const savedUsers = JSON.parse(localStorage.getItem("users") ?? 'null') as User[] | null;
+const savedUsersState = JSON.parse(localStorage.getItem("usersState") ?? 'null') as UsersState | null;
 
-if (!savedUsers || savedUsers.length === 0) {
-  localStorage.setItem("users", JSON.stringify([defaultAdmin]));
+let initialState: UsersState;
+
+if (!savedUsersState || !savedUsersState.list || savedUsersState.list.length === 0) {
+  initialState = {
+    list: [defaultAdmin],
+    maxId: 0,
+  };
+  localStorage.setItem("usersState", JSON.stringify(initialState));
+} else {
+  const maxIdFromList = Math.max(
+    ...savedUsersState.list.map(u => Number(u.id)).filter(id => !isNaN(id))
+  );
+
+  initialState = {
+    list: savedUsersState.list,
+    maxId: Math.max(savedUsersState.maxId || 0, maxIdFromList),
+  };
 }
-
-const initialState: UsersState = {
-   list: savedUsers ?? [defaultAdmin],
-};
 
 const usersSlice = createSlice({
   name: "users",
@@ -26,18 +37,33 @@ const usersSlice = createSlice({
   reducers: {
     addUser(state, action: PayloadAction<User>) {
       state.list.push(action.payload);
-      localStorage.setItem("users", JSON.stringify(state.list));
+      const numericId = Number(action.payload.id);
+      if (!isNaN(numericId) && numericId > state.maxId) {
+        state.maxId = numericId;
+      }
+      localStorage.setItem('usersState', JSON.stringify({
+        list: state.list,
+        maxId: state.maxId
+      }));
     },
     deleteUser(state, action: PayloadAction<string>) {
-      if (action.payload === '1') return;
+      if (action.payload === '0') return;
       state.list = state.list.filter((user: User) => user.id !== action.payload);
-      localStorage.setItem('users', JSON.stringify(state.list));
+      localStorage.setItem('usersState', JSON.stringify({
+        list: state.list
+      }));
     },
     editUser(state, action: PayloadAction<User>) {
       const index = state.list.findIndex((user: User) => user.id === action.payload.id);
       if (index !== -1) {
         state.list[index] = action.payload;
-        localStorage.setItem("users", JSON.stringify(state.list));
+        const numericId = Number(action.payload.id);
+        if (!isNaN(numericId) && numericId > state.maxId) {
+          state.maxId = numericId;
+        }
+        localStorage.setItem('usersState', JSON.stringify({
+          list: state.list
+        }));
       }
     },
   },

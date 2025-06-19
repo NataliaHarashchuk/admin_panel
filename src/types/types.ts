@@ -8,6 +8,7 @@ export type User = {
 
 export type UsersState = {
   list: User[];
+  maxId: number;
 };
 
 export type AuthState = {
