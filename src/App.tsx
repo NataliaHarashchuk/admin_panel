@@ -3,11 +3,12 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import NotFound from './pages/NotFound';
 import PrivateRoute from './routes/PrivateRoute';
-import './App.scss'
+import Header from './components/Header';
 
 export default function App() {
   return (
     <Router basename="/admin_panel/">
+      <Header/>
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
 
